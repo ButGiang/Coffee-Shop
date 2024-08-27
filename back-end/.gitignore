@@ -1,0 +1,5 @@
+/vendor
+/public/storage
+/storage/framework/
+/storage/logs
+/.env
