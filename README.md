@@ -5,4 +5,7 @@
 3. cài đặt connect với database: cài đặt ở file back-end/.env
 4. Chạy chương trình:
   - front-end: npm run serve
-  - back-end: php artisan serve
+  - back-end: 
+  + php artisan serve
+  + php artisan storage:link
+
