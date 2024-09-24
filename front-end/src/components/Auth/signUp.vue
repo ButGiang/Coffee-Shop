@@ -1,4 +1,5 @@
 <template>
+    <!-- register component -->
     <div class="bg-white w-1/2 p-8 mx-auto rounded-md">
         <h2 class="text-2xl font-semibold mb-4">Register</h2>
         <form @submit.prevent="register">
@@ -37,6 +38,7 @@ export default {
         }
     },
     methods: {
+        // register function
         signUp() {
             if (this.username.length < 3 && this.username.length > 15) {
                 commonFunc.showAlert('Error', 'User name must be between 3-15 characters');

@@ -1,4 +1,5 @@
 <template>
+    <!-- Loading popup -->
     <div id="progressBar" class="w-full h-full fixed left-0 top-0 bg-black bg-opacity-40 rounded hidden">
         <div
             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-20 bg-white border-1 border-gray-300 rounded text-center">
@@ -13,6 +14,7 @@
         </div>
     </div>
 
+    <!-- alert popup -->
     <div id="alertPopup" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden">
         <div class="flex items-center justify-center h-full w-full box-border">
             <ul
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    <!-- main layout -->
     <div class="flex justify-center h-screen">
         <div class="bg-neutral-100 p-4 flex-shrink-0 w-1/2 h-screen">
             <img src="@/assets/Images/coffee_shop_logo.jpg" alt="Logo" class="w-full h-full mx-auto rounded-3xl">

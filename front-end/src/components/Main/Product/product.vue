@@ -2,6 +2,7 @@
     <section>
         <div class="pt-8 pb-16 bg-blueGray-100">
             <div class="container px-4 mx-auto">
+                <!-- path link -->
                 <ul class="flex flex-wrap items-center mb-10">
                     <li class="mr-6">
                         <a class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500" href="#">
@@ -56,7 +57,6 @@
                                 </svg>
                             </div>
 
-                            <!-- filter list -->
                             <!-- filter by category -->
                             <div v-if="index === 0 && activeFilterIndex === 0">
                                 <ul class="absolute object-left-bottom w-5/6 bg-gray-200 mt-1 ml-1 rounded z-10">
@@ -450,24 +450,29 @@ export default {
     },
 
     methods: {
+        // date and time format to UTC +7
         formatDateTime(dateTime) {
             return commonFunc.formatDateTime(dateTime);
         },
 
+        // display new product creation modal
         showNewProductModal() {
             this.newProductModalVisible = true;
         },
 
+        // hide new product creation modal
         hideNewProductModal() {
             this.newProductModalVisible = false;
         },
 
+        // handle off-target licking
         handleClickOutside(event) {
             if (!(this.$refs.suggestions && this.$refs.suggestions.contains(event.target))) {
                 this.showSuggestions = false;
             }
         },
 
+        // show/hide filter list
         toggleFilterList(index) {
             if (this.activeFilterIndex === index)
                 this.activeFilterIndex = null;
@@ -475,6 +480,7 @@ export default {
                 this.activeFilterIndex = index;
         },
 
+        // Process image file import for product
         handleFileInput(event) {
             this.productImage = event.target.files[0];
             if (!this.productImage) return;
@@ -486,6 +492,7 @@ export default {
             reader.readAsDataURL(this.productImage);
         },
 
+        // create new product
         createProduct() {
             if (this.productName.length == 0 || this.productPrice.length < 1) {
                 commonFunc.showAlert('Error', 'Please check your product name and price');
@@ -510,6 +517,7 @@ export default {
                 });
         },
 
+        // get product list
         getProducts() {
             this.moreBtn = false;
             commonFunc.showProgressBar();
@@ -527,12 +535,14 @@ export default {
             });
         },
 
+        // reset search result
         resetSearch() {
             this.products = this.originalProductList;
             this.productCount = this.products.length;
             this.searchInput = '';
         },
 
+        // get category list
         getCategoryList() {
             return new Promise((resolve) => {
                 axios.get('/category')
@@ -543,6 +553,7 @@ export default {
             });
         },
 
+        // filter products by category
         productFilterByCategory(category_id) {
             commonFunc.showProgressBar();
             this.moreBtn = false;
@@ -560,6 +571,7 @@ export default {
             });
         },
 
+        // sort products by price
         getProductsByPrice() {
             this.moreBtn = false;
             commonFunc.showProgressBar();
@@ -575,6 +587,7 @@ export default {
             });
         },
 
+        // change the arrangement
         productSortByPrice(sortIndex) {
             if (sortIndex === 0)
                 this.getProductsByPrice();
@@ -586,6 +599,7 @@ export default {
             this.activeFilterIndex = null;
         },
 
+        // Show suggestions when searching
         fetchSuggestions() {
             if (this.searchInput === '') {
                 this.suggestionList = [];
@@ -599,12 +613,14 @@ export default {
             this.showSuggestions = true;
         },
 
+        // handle item selection after search
         selectSuggestion(suggestion) {
             this.products = [];
             this.products.push(suggestion);
             this.productCount = this.products.length;
         },
 
+        // get detail product information by Id
         getDetailProduct(product_id) {
             commonFunc.showProgressBar();
 
@@ -619,19 +635,23 @@ export default {
             });
         },
 
+        // hide detail product information
         hideDetailProductModal() {
             this.detailProductModalVisible = false;
             this.isEditing = false;
         },
 
+        // status allows product editing
         startEditing() {
             this.isEditing = true;
         },
 
+        // status allows disallowing product editing
         endEditing() {
             this.isEditing = false;
         },
 
+        // edit product information
         editProduct() {
             const updatedProduct = this.productDetail[0];
             commonFunc.showProgressBar();

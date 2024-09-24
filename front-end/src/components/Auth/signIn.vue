@@ -1,4 +1,5 @@
 <template>
+    <!-- login component -->
     <div class="bg-white w-1/2 p-8 mx-auto rounded-md">
         <h2 class="text-2xl font-semibold mb-4">Login</h2>
         <form @submit.prevent="login">
@@ -31,6 +32,7 @@ export default {
         }
     },
     methods: {
+        // login function
         signIn() {
             if (this.username.length == 0 || this.password.length == 0) {
                 commonFunc.showAlert('Error', 'Please check your Username or Password again');

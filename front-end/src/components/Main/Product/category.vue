@@ -1,6 +1,7 @@
 <template>
     <section class="py-8 current-highlight">
         <div class="container px-4 mx-auto">
+            <!-- path link -->
             <ul class="flex flex-wrap items-center mb-10">
                 <li class="mr-6">
                     <a class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500" href="#">
@@ -31,6 +32,7 @@
                 </li>
             </ul>
 
+            <!-- title -->
             <div class="pb-6 text-center border-b border-black border-opacity-5">
                 <div class="relative">
                     <h2 class="mb-5 md:mb-0 text-5xl text-blue-400 leading-normal font-heading font-medium text-center">
@@ -47,6 +49,7 @@
                 </button>
             </div>
 
+            <!-- category list -->
             <div class="w-3/4 p-4 mb-6 bg-gray-50 shadow rounded mx-auto">
                 <table class="table-auto w-full">
                     <thead>
@@ -177,18 +180,21 @@ export default {
     },
 
     methods: {
+        // display new category creation modal
         showCategoryModal() {
             this.categoryModalVisible = true;
             this.modalTitle = 'New Category';
             this.isNewCategory = true;
         },
 
+        // hide new category creation modal
         hideCategoryModal() {
             this.categoryName = '';
             this.categoryStatus = 1;
             this.categoryModalVisible = false;
         },
 
+        // get category list from DB
         getCategories() {
             commonFunc.showProgressBar();
             axios.get('/category')
@@ -198,6 +204,7 @@ export default {
                 });
         },
 
+        // create new category
         createCategory() {
             if (this.categoryName.length == 0) {
                 commonFunc.showAlert('Error', 'Please check your category name');
@@ -221,6 +228,7 @@ export default {
                 });
         },
 
+        // edit category information
         updateCategory() {
             if (this.categoryName.length == 0) {
                 commonFunc.showAlert('Error', 'Please check your category name');
@@ -242,6 +250,7 @@ export default {
                 })
         },
 
+        // delete category
         deleteCategory(category_id) {
             const func = () => {
                 commonFunc.showProgressBar();
@@ -257,10 +266,12 @@ export default {
             commonFunc.showConfirm('Message', 'Confirm deletion of category?', func);
         },
 
+        // date and time format to UTC +7
         formatDateTime(dateTime) {
             return commonFunc.formatDateTime(dateTime);
         },
 
+        // get information of a specific category
         getDetailCategory(category_id) {
             commonFunc.showProgressBar();
 
@@ -278,7 +289,6 @@ export default {
                     }
                 });
         },
-
     }
 }
 </script>
