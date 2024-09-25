@@ -72,7 +72,7 @@
                             <div v-if="index === 1 && activeFilterIndex === 1">
                                 <ul class="absolute object-left-bottom w-5/6 bg-gray-200 mt-1 ml-1 rounded z-10">
                                     <li class="flex justify-between h-10 p-2 border border-gray-300 rounded hover:bg-gray-100"
-                                        v-for="(sort, sortIndex) in price" :key="sortIndex"
+                                        v-for="(sort, sortIndex) in priceSortIcon" :key="sortIndex"
                                         @click="productSortByPrice(sortIndex)">
                                         {{ sort.name }}
                                         <span v-html="sort.icon"></span>
@@ -204,6 +204,23 @@
                                                 <span class="text-white font-bold">$</span>
                                             </div>
 
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full px-4 mb-10">
+                                        <div
+                                            class="relative w-full h-14 py-2 px-3 border border-gray-400 hover:border-white focus-within:border-green-500 rounded-lg">
+                                            <span
+                                                class="absolute bottom-full left-0 ml-3 -mb-1 transform translate-y-0.5 text-xs font-semibold text-gray-300 px-1 bg-gray-500">
+                                                Category
+                                            </span>
+                                            <select v-model="productCategory"
+                                                class="bg-transparent rounded w-full py-2 px-3 focus:outline-none">
+                                                <option v-for="category in categories" :key="category.id"
+                                                    :value="category.id">
+                                                    {{ category.name }}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -358,7 +375,7 @@ export default {
             products: [],
             originalProductList: [],
             categories: [],
-            price: [
+            priceSortIcon: [
                 {
                     name: 'Ascending',
                     icon: `<svg fill="#000000" height="24px" width="24px" version="1.1" 
@@ -412,6 +429,7 @@ export default {
 
             productName: '',
             productPrice: '',
+            productCategory: '',
             productDescribe: '',
             productImage: null,
 
@@ -503,6 +521,7 @@ export default {
             const productData = new FormData();
             productData.append('productName', this.productName);
             productData.append('productPrice', this.productPrice);
+            productData.append('productCategory', this.productCategory);
             productData.append('productDescribe', this.productDescribe);
             productData.append('productImage', this.productImage);
             axios.post('/product', productData, {

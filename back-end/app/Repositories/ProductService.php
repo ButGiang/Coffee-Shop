@@ -32,13 +32,14 @@ class ProductService
         return $products;
     }
 
-    public function create($productName, $productPrice, $productDescribe, $productImagePath)
+    public function create($productName, $productPrice, $productCategory, $productDescribe, $productImagePath)
     {
         DB::beginTransaction();
         try {
             $newProduct = new Product();
             $newProduct->name = $productName;
             $newProduct->price = $productPrice;
+            $newProduct->category = $productCategory;
             $newProduct->description = $productDescribe;
             $newProduct->image = $productImagePath;
             $newProduct->save();

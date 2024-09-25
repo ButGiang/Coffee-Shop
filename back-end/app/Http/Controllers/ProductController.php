@@ -41,6 +41,7 @@ class ProductController extends Controller
     {
         $productName = $request->get('productName');
         $productPrice = $request->get('productPrice');
+        $productCategory = $request->get('productCategory');
         $productDescribe = $request->get('productDescribe');
 
         if ($request->hasFile('productImage')) {
@@ -52,7 +53,7 @@ class ProductController extends Controller
             $productImagePath = null;
         }
 
-        $response = $this->productService->create($productName, $productPrice, $productDescribe, $productImagePath);
+        $response = $this->productService->create($productName, $productPrice, $productCategory, $productDescribe, $productImagePath);
         if (isset($response['error']))
             return $response['error'];
 
