@@ -46,7 +46,7 @@
                         <!-- filter bar -->
                         <div v-for="(item, index) in filterItems" :key="index"
                             class="w-2/3 sm:w-1/3 lg:w-48 py-2 sm:px-3 cursor-pointer relative">
-                            <div @click="toggleFilterList(index)"
+                            <div @click="toggleFilterList(index); $event.stopPropagation()"
                                 class="flex items-center justify-around py-2 font-heading font-medium border border-gray-200 hover:border-orange-500 rounded-xl">
                                 <span>{{ item }}</span>
                                 <svg class="relative top-px ml-6" width="8" height="5" viewBox="0 0 8 5" fill="none"
@@ -177,7 +177,7 @@
                         <div class="max-w-xl mx-auto">
                             <form @submit.prevent="create">
                                 <div class="flex flex-wrap -mx-4 -mb-10">
-                                    <div class="w-full md:w-1/2 px-4 mb-10">
+                                    <div class="w-full md:w-1/2 px-4 mb-4">
                                         <div
                                             class="relative w-full h-14 py-4 px-3 border border-gray-400 hover:border-white focus-within:border-green-500 rounded-lg">
                                             <span
@@ -190,7 +190,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-full md:w-1/2 px-4 mb-10">
+                                    <div class="w-full md:w-1/2 px-4 mb-4">
                                         <div
                                             class="relative w-full h-14 py-4 px-3 border border-gray-400 hover:border-white focus-within:border-green-500 rounded-lg">
                                             <span
@@ -207,7 +207,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-full px-4 mb-10">
+                                    <div class="w-full px-4 mb-4">
                                         <div
                                             class="relative w-full h-14 py-2 px-3 border border-gray-400 hover:border-white focus-within:border-green-500 rounded-lg">
                                             <span
@@ -224,7 +224,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-full px-4 mb-10">
+                                    <div class="w-full px-4 mb-4">
                                         <div
                                             class="relative w-full py-4 px-3 border border-gray-400 hover:border-white focus-within:border-green-500 rounded-lg">
                                             <span
@@ -239,7 +239,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="w-full px-4 mb-10">
+                                    <div class="w-full px-4 mb-4">
                                         <div class="flex flex-wrap sm:flex-nowrap">
                                             <div class="flex-shrink-0 w-20 h-20 mb-4 mr-4">
                                                 <img class="w-full h-full rounded-full" v-if="imagePreview"
@@ -487,6 +487,9 @@ export default {
         handleClickOutside(event) {
             if (!(this.$refs.suggestions && this.$refs.suggestions.contains(event.target))) {
                 this.showSuggestions = false;
+            }
+            if (!this.$el.contains(event.target)) {
+                this.activeFilterIndex = null;
             }
         },
 
