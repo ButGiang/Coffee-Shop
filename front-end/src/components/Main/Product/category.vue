@@ -250,14 +250,13 @@ export default {
                 })
         },
 
-        // delete category
+        // delete category by id
         deleteCategory(category_id) {
             const func = () => {
                 commonFunc.showProgressBar();
 
                 axios.delete(`/category/${category_id}`)
                     .then((res) => {
-                        console.log('res: ', res)
                         commonFunc.hideProgressBar();
                         commonFunc.showAlert('Message', res.data, commonFunc.reloadPage);
                     });

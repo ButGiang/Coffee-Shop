@@ -67,4 +67,14 @@ class ProductController extends Controller
 
         return $response['success'];
     }
+
+    public function delete($id)
+    {
+        $response = $this->productService->delete($id);
+
+        if (isset($response['error']))
+        return $response['error'];
+
+        return $response['success'];
+    }
 }

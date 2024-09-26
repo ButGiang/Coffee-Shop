@@ -338,7 +338,7 @@
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Category</label>
                             <select v-model="productDetail[0].category"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight cursor-pointer focus:outline-none focus:shadow-outline">
                                 <option v-for="category in categories" :key="category.id" :value="category.id">
                                     {{ category.name }}
                                 </option>
@@ -347,8 +347,12 @@
 
                         <div class="mt-16 flex justify-end space-x-3">
                             <button @click="endEditing()"
-                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+                                class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">
                                 Back
+                            </button>
+                            <button @click="deleteProduct(productDetail[0].id)"
+                                class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">
+                                Delete
                             </button>
                             <button @click="editProduct()"
                                 class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700">
@@ -647,7 +651,7 @@ export default {
             commonFunc.showProgressBar();
 
             return new Promise((resolve) => {
-                axios.get(`product/detail/${product_id}`)
+                axios.get(`product/${product_id}`)
                     .then((response) => {
                         this.productDetail = response.data;
                         this.detailProductModalVisible = true;
@@ -691,6 +695,20 @@ export default {
             });
         },
 
+        // delete product by id
+        deleteProduct(product_id) {
+            const func = () => {
+                commonFunc.showProgressBar();
+
+                axios.delete(`/product/${product_id}`)
+                    .then((res) => {
+                        commonFunc.hideProgressBar();
+                        commonFunc.showAlert('Message', res.data, commonFunc.reloadPage);
+                    });
+            }
+
+            commonFunc.showConfirm('Message', 'Confirm deletion of product?', func);
+        }
     }
 }
 </script>

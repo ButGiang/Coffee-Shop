@@ -77,4 +77,21 @@ class ProductService
             return ['error' => 'Failed to update product: ' . $e->getMessage()];
         }
     }
+
+    public function delete($id)
+    {
+        $product = Product::find($id);
+        DB::beginTransaction();
+        try {
+            if ($product) {
+                $product->delete();
+                DB::commit();
+                return ['success' => 'Product deleted successfully'];
+            } else
+                return ['error' => 'product not found'];
+        } catch (QueryException $e) {
+            DB::rollBack();
+            return ['error' => 'Database error: ' . $e->getMessage()];
+        }
+    }
 }
