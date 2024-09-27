@@ -300,7 +300,6 @@
                         <h2 class="text-2xl font-bold">{{ productDetail[0].name }}</h2>
                         <p class="mt-3 text-justify">{{ productDetail[0].description }}</p>
                         <p class="mt-3">Price: <b>{{ productDetail[0].price }}$</b></p>
-                        <p class="mt-3">Category: <b>{{ productDetail[0].category }}</b></p>
                         <p class="mt-3">Last update: <b>{{ formatDateTime(productDetail[0].updated_at) }}</b></p>
 
                         <div class="mt-48 flex justify-end space-x-3">

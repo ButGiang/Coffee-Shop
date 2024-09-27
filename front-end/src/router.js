@@ -11,6 +11,7 @@ import category from './components/Main/Product/category.vue'
 
 
 const routes = [
+    // login/register route
     {
         path: '/',
         component: authLayout,
@@ -25,6 +26,8 @@ const routes = [
             }
         ]
     },
+
+    // dashboard route
     {
         path: '/Home',
         component: mainLayout,
@@ -36,6 +39,21 @@ const routes = [
         ],
         meta: { requiresAuth: true }
     },
+
+    // category route
+    {
+        path: '/Category',
+        component: mainLayout,
+        children: [
+            {
+                path: '',
+                component: category
+            }
+        ],
+        meta: { requiresAuth: true }
+    },
+
+    // product route
     {
         path: '/Product',
         component: mainLayout,
@@ -47,17 +65,7 @@ const routes = [
         ],
         meta: { requiresAuth: true }
     },
-    {
-        path: '/Category',
-        component: mainLayout,
-        children: [
-            {
-                path: '',
-                component: category
-            }
-        ],
-        meta: { requiresAuth: true }
-    }
+
 ]
 
 const router = createRouter({
@@ -66,13 +74,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const authToken = localStorage.getItem('authToken');
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!authToken) {
-            next('/');
-        } else {
-            next();
-        }
+    const isLoggedIn = !!localStorage.getItem('authToken');
+    if (to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) {
+        next('/');
     } else {
         next();
     }

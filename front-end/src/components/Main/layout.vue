@@ -1,4 +1,5 @@
 <template>
+    <!-- loading bar -->
     <div id="progressBar" class="w-full h-full fixed left-0 top-0 bg-black bg-opacity-40 rounded hidden">
         <div
             class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-20 bg-white border-1 border-gray-300 rounded text-center">
@@ -13,6 +14,7 @@
         </div>
     </div>
 
+    <!-- alert popup -->
     <div id="alertPopup" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden">
         <div class="flex items-center justify-center h-full w-full box-border">
             <ul
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    <!-- confirm popup -->
     <div id="confirmPopup" class="fixed inset-0 bg-black bg-opacity-40 z-50 hidden">
         <div class="flex items-center justify-center h-full w-full box-border">
             <ul
@@ -43,7 +46,7 @@
                 </li>
                 <li class="px-10 py-5 flex justify-around">
                     <button id="cancelConfirmPopup_btn"
-                        class="h-12 w-1/2 mr-3 bg-gray-300 text-black border border-solid bg-gray-200 rounded text-white hover:bg-gray-200">Cancel</button>
+                        class="h-12 w-1/2 mr-3 bg-gray-500 text-black border border-solid bg-gray-400 rounded text-white hover:bg-gray-300">Cancel</button>
                     <button id="confirmPopup_btn"
                         class="h-12 w-1/2 bg-orange-500 border border-solid border-orange-400 rounded text-white hover:bg-orange-400">OK</button>
                 </li>
@@ -198,7 +201,7 @@
                         <span class="ml-4 text-sm font-semibold">Settings</span>
                     </router-link>
 
-                    <router-link class="flex items-center p-4 text-gray-300 hover:bg-gray-800 rounded-xl" @click="logOut()">
+                    <div class="flex items-center p-4 text-gray-300 hover:bg-gray-800 rounded-xl cursor-pointer" @click="logOut()">
                         <span class="text-gray-400">
                             <svg width="22" height="22" viewbox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -212,7 +215,7 @@
                             </svg>
                         </span>
                         <span class="ml-4 text-sm font-semibold">Log Out</span>
-                    </router-link>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -224,6 +227,8 @@
 </template>
 
 <script>
+import { commonFunc } from '@/service/commonFunc'
+
 export default {
     name: 'mainLayout',
 
@@ -239,8 +244,12 @@ export default {
         },
 
         logOut() {
-            localStorage.removeItem('authToken');
-            this.$router.push('/');
+            const func = () => {
+                    localStorage.removeItem('authToken');
+                    this.$router.push('/');
+            }
+
+            commonFunc.showConfirm('Message', 'Are you sure you want to log out?', func);
         }
     },
 }

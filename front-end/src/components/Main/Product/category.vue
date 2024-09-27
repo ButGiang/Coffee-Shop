@@ -73,7 +73,7 @@
                             <td>
                                 <span class="inline-block py-1 px-4 text-white rounded-full"
                                     :class="{ 'bg-green-500': category.status == 1, 'bg-red-500': category.status == 0 }">
-                                    {{ category.status == 1 ? 'Yes' : 'No' }}
+                                    {{ category.status == 1 ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
 

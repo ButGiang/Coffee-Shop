@@ -49,8 +49,9 @@ export default {
                     if (response.data.error !== undefined)
                         commonFunc.showAlert('Error', response.data);
                     else {
-                        localStorage.setItem('authToken', response.data.token);
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+                        const token = response.data.access_token;
+                        localStorage.setItem('authToken', token);
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                         this.$router.push('/Home');
                     }
                 })
